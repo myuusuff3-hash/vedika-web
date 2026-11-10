@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pendaftaran Program Vedika EdTech</title>
+<meta name="robots" content="index, follow">
+<style>
+  html, body { margin:0; height:100%; background:#FAF9F5; }
+  iframe { border:0; width:100%; height:100%; display:block; }
+</style>
+</head>
+<body>
+  <iframe src="https://script.google.com/macros/s/AKfycbwZdpSG_ipCtJsIgni6L9j3DE4ESvyJa3b6_Z6J2GC9LTD7CFenjMYSwWtNoehTWGZ0/exec" title="Formulir Pendaftaran Vedika EdTech"
+          allow="clipboard-write"></iframe>
+</body>
+</html>
