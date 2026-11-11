@@ -6,50 +6,360 @@
 <meta name="robots" content="index, follow">
 <title>Pendaftaran Program Vedika EdTech</title>
 <style>
-  :root { --brand:#C15F3C; --brand-600:#A94F30; --bg:#FAF9F5; --text:#141413; --muted:#6B6A65; --line:#E8E6DC; }
+  :root {
+    --brand:#C15F3C; --brand-600:#A94F30; --brand-50:#FBEFEA;
+    --bg:#FAF9F5; --surface:#FFFFFF; --text:#141413; --muted:#6B6A65;
+    --line:#E8E6DC; --ok:#3D7A4E; --err:#B3261E;
+  }
   * { box-sizing:border-box; }
-  body { margin:0; min-height:100vh; background:var(--bg); color:var(--text);
-         font-family:'Segoe UI',Roboto,Arial,sans-serif; display:flex; flex-direction:column; }
-  header { background:#fff; border-bottom:1px solid var(--line); padding:16px 24px;
-           display:flex; align-items:center; gap:12px; }
-  header img { height:36px; width:auto; }
-  .brand-fallback { font-weight:700; font-size:20px; color:var(--brand); }
-  main { flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 32px;
-          max-width:560px; width:100%; text-align:center; }
-  h1 { font-family:Georgia,'Times New Roman',serif; font-size:26px; margin:0 0 12px; }
-  p { color:var(--muted); line-height:1.7; margin:0 0 24px; font-size:15px; }
-  ul { text-align:left; color:var(--muted); font-size:14px; line-height:1.9; padding-left:20px; margin:0 0 28px; }
-  .btn { display:inline-block; background:var(--brand); color:#fff; text-decoration:none;
-         padding:14px 28px; border-radius:10px; font-weight:600; font-size:16px; }
-  .btn:hover { background:var(--brand-600); }
-  .note { font-size:12px; margin-top:16px; }
-  footer { text-align:center; color:var(--muted); font-size:12px; padding:18px; }
+  body { margin:0; font-family:'Segoe UI',Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); font-size:15px; }
+  header { background:var(--surface); border-bottom:1px solid var(--line); padding:14px 24px;
+           position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:14px; }
+  header img { height:40px; width:auto; }
+  .logo-fallback { font-weight:700; font-size:20px; color:var(--brand); }
+  .hdr-title { font-weight:700; font-size:15px; }
+  .hdr-sub { font-size:12px; color:var(--muted); }
+  main { max-width:1040px; margin:24px auto; padding:0 16px; display:grid;
+         grid-template-columns:1fr 320px; gap:20px; align-items:start; }
+  @media (max-width:820px) { main { grid-template-columns:1fr; } }
+  .hero { grid-column:1/-1; background:var(--text); color:#FAF9F5; border-radius:14px; padding:24px 28px; border-left:6px solid var(--brand); }
+  .hero h1 { margin:0 0 6px; font-size:22px; font-family:Georgia,'Times New Roman',serif; font-weight:600; }
+  .hero p { margin:0; opacity:.85; font-size:14px; line-height:1.6; }
+  .progress { height:6px; background:rgba(250,249,245,.18); border-radius:4px; margin-top:18px; overflow:hidden; }
+  .progress div { height:100%; width:0; background:var(--brand); transition:width .3s; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:22px; margin-bottom:18px; }
+  .card h2 { font-size:16px; margin:0 0 4px; display:flex; align-items:center; }
+  .card .desc { color:var(--muted); font-size:13px; margin:0 0 16px; line-height:1.5; }
+  .num { display:inline-flex; width:24px; height:24px; border-radius:50%; background:var(--brand); color:#fff;
+         align-items:center; justify-content:center; font-size:12px; margin-right:10px; flex-shrink:0; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px) { .grid2 { grid-template-columns:1fr; } }
+  label { display:block; font-weight:600; font-size:13px; margin-bottom:6px; }
+  input[type=text], input[type=number] { width:100%; padding:10px 12px; border:1px solid #D6D3C8; border-radius:8px;
+         font-size:14px; font-family:inherit; background:#fff; color:var(--text); }
+  input[type=text]:focus, input[type=number]:focus { outline:2px solid #F0D3C3; border-color:var(--brand); }
+  .choices { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .choice { position:relative; cursor:pointer; }
+  .choice input { position:absolute; opacity:0; pointer-events:none; }
+  .choice span { display:block; height:100%; border:1.5px solid #D6D3C8; border-radius:10px; padding:12px;
+         text-align:center; font-weight:600; font-size:14px; transition:.15s; background:#fff; }
+  .choice small { display:block; font-weight:400; color:var(--muted); font-size:12px; margin-top:3px; line-height:1.4; }
+  .choice:hover span { border-color:#E8A88E; }
+  .choice input:checked + span { border-color:var(--brand); background:var(--brand-50); color:var(--brand-600); }
+  .paket .choice span { padding:18px 12px; }
+  .hint { font-size:12px; color:var(--muted); }
+  .side { position:sticky; top:96px; }
+  .summary dl { margin:0 0 16px; display:grid; grid-template-columns:auto 1fr; gap:10px 12px; font-size:13px; }
+  .summary dt { color:var(--muted); }
+  .summary dd { margin:0; font-weight:600; word-break:break-word; }
+  button.primary { width:100%; padding:13px; background:var(--brand); color:#fff; border:0; border-radius:10px;
+         font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; }
+  button.primary:hover { background:var(--brand-600); }
+  button.primary:disabled { opacity:.6; cursor:default; }
+  .alert { padding:12px 14px; border-radius:8px; font-size:13px; margin-top:14px; display:none; line-height:1.5; }
+  .alert.err { display:block; background:#FBEAEA; color:var(--err); }
+  .success { display:none; text-align:center; padding:48px 24px; max-width:520px; margin:40px auto; }
+  .success .tick { width:64px; height:64px; border-radius:50%; background:#E3F1E7; color:var(--ok);
+         font-size:30px; line-height:64px; margin:0 auto 16px; }
+  .success h2 { margin:0 0 8px; font-family:Georgia,'Times New Roman',serif; }
+  .success p { color:var(--muted); line-height:1.6; }
+  .ghost { margin-top:18px; background:none; border:1px solid var(--brand); color:var(--brand);
+           padding:10px 18px; border-radius:8px; cursor:pointer; font-weight:600; font-family:inherit; }
+  footer { text-align:center; color:var(--muted); font-size:12px; padding:20px; }
+  .hidden { display:none !important; }
 </style>
 </head>
 <body>
 
 <header>
   <img src="/logo.png" alt="Vedika EdTech"
-       onerror="this.style.display='none';document.getElementById('fb').style.display='block'">
-  <span id="fb" class="brand-fallback" style="display:none">vedika</span>
+       onerror="this.style.display='none';document.getElementById('fb').style.display='inline'">
+  <span id="fb" class="logo-fallback" style="display:none">vedika</span>
+  <div>
+    <div class="hdr-title">Formulir Pendaftaran Program Vedika EdTech</div>
+    <div class="hdr-sub">Penyedia dan Pengembangan Sistem Pendidikan</div>
+  </div>
 </header>
 
-<main>
-  <section class="card">
+<main id="mainWrap">
+  <section class="hero">
     <h1>Pendaftaran Program Sekolah</h1>
-    <p>Daftarkan sekolah Anda untuk program Olimpiade, TKA, UTBK, dan Evolution.</p>
-    <ul>
-      <li>Data sekolah dan PIC</li>
-      <li>Pilihan jenjang dan program</li>
-      <li>Pilihan paket tryout</li>
-    </ul>
-    <a class="btn" href="https://script.google.com/macros/s/AKfycbwZdpSG_ipCtJsIgni6L9j3DE4ESvyJa3b6_Z6J2GC9LTD7CFenjMYSwWtNoehTWGZ0/exec" target="_blank" rel="noopener">Buka Formulir Pendaftaran</a>
-    <p class="note">Formulir akan terbuka di tab baru.</p>
+    <p>Mohon lengkapi data sekolah dan pilih program yang diikuti. Data Anda akan kami gunakan untuk koordinasi dan penyusunan jadwal.</p>
+    <div class="progress"><div id="bar"></div></div>
   </section>
+
+  <form id="form" autocomplete="off" onsubmit="return false;">
+    <div class="card">
+      <h2><span class="num">1</span>Data Sekolah</h2>
+      <p class="desc">Tuliskan nama sekolah sesuai dokumen resmi.</p>
+      <label for="namaSekolah">Nama Sekolah</label>
+      <input type="text" id="namaSekolah" placeholder="Contoh: SD Harapan Bangsa">
+    </div>
+
+    <div class="card">
+      <h2><span class="num">2</span>Penanggung Jawab (PIC)</h2>
+      <p class="desc">Orang yang kami hubungi untuk koordinasi program.</p>
+      <div class="grid2">
+        <div>
+          <label for="namaPic">Nama PIC</label>
+          <input type="text" id="namaPic" placeholder="Nama lengkap">
+        </div>
+        <div>
+          <label for="kontak">Kontak PIC (WhatsApp / Email)</label>
+          <input type="text" id="kontak" placeholder="08xxxxxxxxxx atau nama@email.com">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">3</span>Jenjang Pendidikan</h2>
+      <p class="desc">Pilih jenjang sekolah Anda. Berlaku juga untuk sekolah sederajat.</p>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="jenjang" value="SD"><span>SD<small>Sekolah Dasar / sederajat</small></span></label>
+        <label class="choice"><input type="radio" name="jenjang" value="SMP"><span>SMP<small>Sekolah Menengah Pertama / sederajat</small></span></label>
+        <label class="choice"><input type="radio" name="jenjang" value="SMA"><span>SMA<small>Sekolah Menengah Atas / sederajat</small></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="num">4</span>Program yang Diikuti</h2>
+      <p class="desc">Pilih satu atau lebih program sesuai kebutuhan sekolah Anda.</p>
+      <div class="choices" id="programs">
+        <div class="hint">Pilih jenjang terlebih dahulu untuk menampilkan program.</div>
+      </div>
+    </div>
+
+    <div class="card" id="paketCard">
+      <h2><span class="num">5</span>Pilihan Paket</h2>
+      <p class="desc">Pilih paket tryout yang paling sesuai, atau tentukan jumlah sendiri. Paket tidak berlaku untuk program Evolution.</p>
+      <div class="choices paket">
+        <label class="choice"><input type="radio" name="paket" value="1"><span>1x Tryout</span></label>
+        <label class="choice"><input type="radio" name="paket" value="5"><span>5x Tryout</span></label>
+        <label class="choice"><input type="radio" name="paket" value="10"><span>10x Tryout</span></label>
+        <label class="choice"><input type="radio" name="paket" value="custom"><span>Custom<small>Tentukan sendiri</small></span></label>
+      </div>
+      <div id="customWrap" class="hidden" style="margin-top:16px">
+        <label for="jumlahCustom">Jumlah Tryout yang Diinginkan</label>
+        <input type="number" id="jumlahCustom" min="1" max="100" placeholder="Contoh: 3">
+      </div>
+    </div>
+  </form>
+
+  <aside class="side">
+    <div class="card summary">
+      <h2>Ringkasan Pendaftaran</h2>
+      <p class="desc">Periksa kembali data sebelum mengirim.</p>
+      <dl>
+        <dt>Sekolah</dt><dd id="s-sekolah">–</dd>
+        <dt>PIC</dt><dd id="s-pic">–</dd>
+        <dt>Kontak</dt><dd id="s-kontak">–</dd>
+        <dt>Jenjang</dt><dd id="s-jenjang">–</dd>
+        <dt>Program</dt><dd id="s-program">–</dd>
+        <dt>Paket</dt><dd id="s-paket">–</dd>
+      </dl>
+      <button class="primary" id="btnSubmit" type="button">Kirim Pendaftaran</button>
+      <div class="alert" id="alert"></div>
+    </div>
+  </aside>
 </main>
+
+<section class="card success" id="success">
+  <div class="tick">✓</div>
+  <h2>Pendaftaran Diterima</h2>
+  <p>Terima kasih. Data pendaftaran sekolah Anda telah kami terima dan akan segera kami tindak lanjuti oleh tim Vedika EdTech.</p>
+  <button class="ghost" onclick="location.reload()">Daftarkan Sekolah Lain</button>
+</section>
 
 <footer>&copy; Vedika EdTech · Penyedia dan Pengembangan Sistem Pendidikan</footer>
 
+<script>
+// URL web app Apps Script (deployment terbaru, berakhiran /exec)
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbw62dy7oVsBQ33APlKjnsI_QR5iQF9fgD16PoZLXgPEdDv8WGEoY7Vv-FB1ab99E4Yj/exec';
+
+const PROGRAM = {
+  OSN:       { nama: 'OSN',       desc: 'Olimpiade Sains Nasional' },
+  OMI:       { nama: 'OMI',       desc: 'Olimpiade Matematika Indonesia' },
+  TKA:       { nama: 'TKA',       desc: 'Tes Kemampuan Akademik' },
+  Evolution: { nama: 'Evolution', desc: 'Paper-Based to Paperless' },
+  UTBK:      { nama: 'UTBK',      desc: 'Ujian Tulis Berbasis Komputer', sma: true }
+};
+const PAKET_LABEL = { '1': '1x Tryout', '5': '5x Tryout', '10': '10x Tryout', 'custom': 'Custom' };
+
+const $ = id => document.getElementById(id);
+const val = id => $(id).value.trim();
+
+function getJenjang() {
+  const c = document.querySelector('input[name=jenjang]:checked');
+  return c ? c.value : '';
+}
+function getPaket() {
+  const c = document.querySelector('input[name=paket]:checked');
+  return c ? c.value : '';
+}
+function getPrograms() {
+  return [...document.querySelectorAll('#programs input:checked')].map(i => i.value);
+}
+// Paket tidak diperlukan jika hanya memilih Evolution
+function needsPaket(programs) {
+  return programs.length === 0 || programs.some(p => p !== 'Evolution');
+}
+
+function renderPrograms() {
+  const j = getJenjang();
+  const box = $('programs');
+  const selected = getPrograms();
+  if (!j) {
+    box.innerHTML = '<div class="hint">Pilih jenjang terlebih dahulu untuk menampilkan program.</div>';
+    return;
+  }
+  const list = Object.keys(PROGRAM).filter(k => !PROGRAM[k].sma || j === 'SMA');
+  box.innerHTML = list.map(k => `
+    <label class="choice">
+      <input type="checkbox" value="${k}" ${selected.includes(k) ? 'checked' : ''}>
+      <span>${PROGRAM[k].nama}<small>${PROGRAM[k].desc}</small></span>
+    </label>`).join('');
+  box.querySelectorAll('input').forEach(i => i.addEventListener('change', update));
+}
+
+function paketSummary() {
+  const p = getPaket();
+  if (!p) return '';
+  if (p === 'custom') {
+    const n = val('jumlahCustom');
+    return n ? `Custom (${n}x Tryout)` : 'Custom';
+  }
+  return PAKET_LABEL[p];
+}
+
+function update() {
+  const programs = getPrograms();
+  const perlu = needsPaket(programs);
+
+  $('paketCard').classList.toggle('hidden', !perlu);
+  if (!perlu) document.querySelectorAll('input[name=paket]').forEach(r => r.checked = false);
+
+  const data = {
+    sekolah: val('namaSekolah'),
+    pic: val('namaPic'),
+    kontak: val('kontak'),
+    jenjang: getJenjang(),
+    program: programs,
+    paket: perlu ? getPaket() : ''
+  };
+
+  $('customWrap').classList.toggle('hidden', data.paket !== 'custom');
+  $('s-sekolah').textContent = data.sekolah || '–';
+  $('s-pic').textContent = data.pic || '–';
+  $('s-kontak').textContent = data.kontak || '–';
+  $('s-jenjang').textContent = data.jenjang || '–';
+  $('s-program').textContent = data.program.join(', ') || '–';
+  $('s-paket').textContent = !perlu ? 'Tidak berlaku (Evolution)' : (paketSummary() || '–');
+
+  const steps = [
+    !!data.sekolah,
+    !!(data.pic && data.kontak),
+    !!data.jenjang,
+    data.program.length > 0,
+    !perlu || (!!data.paket && (data.paket !== 'custom' || parseInt(val('jumlahCustom'), 10) > 0))
+  ];
+  $('bar').style.width = (steps.filter(Boolean).length / steps.length * 100) + '%';
+}
+
+function showAlert(msg) {
+  const a = $('alert');
+  a.className = 'alert err';
+  a.textContent = msg;
+}
+function resetAlert() {
+  $('alert').className = 'alert';
+  $('alert').textContent = '';
+}
+
+function collect() {
+  return {
+    namaSekolah: val('namaSekolah'),
+    namaPic: val('namaPic'),
+    kontak: val('kontak'),
+    jenjang: getJenjang(),
+    program: getPrograms(),
+    paket: getPaket(),
+    jumlahCustom: val('jumlahCustom')
+  };
+}
+
+// Kirim data ke Apps Script lewat tag <script> (JSONP), sehingga tidak terblokir CORS
+function sendToServer(payload) {
+  return new Promise((resolve, reject) => {
+    const cb = 'vedikaCb' + Date.now() + Math.floor(Math.random() * 10000);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('Waktu habis. Periksa koneksi internet Anda lalu coba lagi.'));
+    }, 25000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+    }
+
+    window[cb] = res => {
+      cleanup();
+      if (res && res.ok) resolve(res);
+      else reject(new Error((res && res.error) || 'Data belum dapat disimpan.'));
+    };
+    script.onerror = () => {
+      cleanup();
+      reject(new Error('Gagal terhubung ke server.'));
+    };
+
+    script.src = ENDPOINT + '?action=submit&callback=' + cb +
+                 '&data=' + encodeURIComponent(JSON.stringify(payload));
+    document.body.appendChild(script);
+  });
+}
+
+$('btnSubmit').addEventListener('click', function () {
+  resetAlert();
+  const d = collect();
+
+  if (!d.namaSekolah) return showAlert('Nama sekolah wajib diisi.');
+  if (!d.namaPic) return showAlert('Nama PIC wajib diisi.');
+  if (!d.kontak) return showAlert('Kontak PIC wajib diisi.');
+  if (!d.jenjang) return showAlert('Pilih jenjang pendidikan.');
+  if (!d.program.length) return showAlert('Pilih minimal satu program.');
+  if (needsPaket(d.program)) {
+    if (!d.paket) return showAlert('Pilih paket tryout.');
+    if (d.paket === 'custom' && !(parseInt(d.jumlahCustom, 10) > 0)) {
+      return showAlert('Isi jumlah tryout untuk paket Custom.');
+    }
+  }
+
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = 'Mengirim...';
+
+  sendToServer(d)
+    .then(() => {
+      $('mainWrap').classList.add('hidden');
+      $('success').style.display = 'block';
+      window.scrollTo(0, 0);
+    })
+    .catch(err => {
+      showAlert('Maaf, data belum dapat dikirim. ' + err.message + ' Silakan coba lagi.');
+      btn.disabled = false;
+      btn.textContent = 'Kirim Pendaftaran';
+    });
+});
+
+document.querySelectorAll('input[name=jenjang]').forEach(r =>
+  r.addEventListener('change', () => { renderPrograms(); update(); }));
+document.querySelectorAll('input[name=paket]').forEach(r =>
+  r.addEventListener('change', update));
+['namaSekolah', 'namaPic', 'kontak', 'jumlahCustom'].forEach(id =>
+  $(id).addEventListener('input', update));
+
+update();
+</script>
 </body>
 </html>
