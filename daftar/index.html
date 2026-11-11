@@ -3,15 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pendaftaran Program Vedika EdTech</title>
 <meta name="robots" content="index, follow">
+<title>Pendaftaran Program Vedika EdTech</title>
 <style>
-  html, body { margin:0; height:100%; background:#FAF9F5; }
-  iframe { border:0; width:100%; height:100%; display:block; }
+  :root { --brand:#C15F3C; --brand-600:#A94F30; --bg:#FAF9F5; --text:#141413; --muted:#6B6A65; --line:#E8E6DC; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:var(--bg); color:var(--text);
+         font-family:'Segoe UI',Roboto,Arial,sans-serif; display:flex; flex-direction:column; }
+  header { background:#fff; border-bottom:1px solid var(--line); padding:16px 24px;
+           display:flex; align-items:center; gap:12px; }
+  header img { height:36px; width:auto; }
+  .brand-fallback { font-weight:700; font-size:20px; color:var(--brand); }
+  main { flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:36px 32px;
+          max-width:560px; width:100%; text-align:center; }
+  h1 { font-family:Georgia,'Times New Roman',serif; font-size:26px; margin:0 0 12px; }
+  p { color:var(--muted); line-height:1.7; margin:0 0 24px; font-size:15px; }
+  ul { text-align:left; color:var(--muted); font-size:14px; line-height:1.9; padding-left:20px; margin:0 0 28px; }
+  .btn { display:inline-block; background:var(--brand); color:#fff; text-decoration:none;
+         padding:14px 28px; border-radius:10px; font-weight:600; font-size:16px; }
+  .btn:hover { background:var(--brand-600); }
+  .note { font-size:12px; margin-top:16px; }
+  footer { text-align:center; color:var(--muted); font-size:12px; padding:18px; }
 </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbwZdpSG_ipCtJsIgni6L9j3DE4ESvyJa3b6_Z6J2GC9LTD7CFenjMYSwWtNoehTWGZ0/exec" title="Formulir Pendaftaran Vedika EdTech"
-          allow="clipboard-write"></iframe>
+
+<header>
+  <img src="/logo.png" alt="Vedika EdTech"
+       onerror="this.style.display='none';document.getElementById('fb').style.display='block'">
+  <span id="fb" class="brand-fallback" style="display:none">vedika</span>
+</header>
+
+<main>
+  <section class="card">
+    <h1>Pendaftaran Program Sekolah</h1>
+    <p>Daftarkan sekolah Anda untuk program Olimpiade, TKA, UTBK, dan Evolution.</p>
+    <ul>
+      <li>Data sekolah dan PIC</li>
+      <li>Pilihan jenjang dan program</li>
+      <li>Pilihan paket tryout</li>
+    </ul>
+    <a class="btn" href="https://script.google.com/macros/s/AKfycbwZdpSG_ipCtJsIgni6L9j3DE4ESvyJa3b6_Z6J2GC9LTD7CFenjMYSwWtNoehTWGZ0/exec" target="_blank" rel="noopener">Buka Formulir Pendaftaran</a>
+    <p class="note">Formulir akan terbuka di tab baru.</p>
+  </section>
+</main>
+
+<footer>&copy; Vedika EdTech · Penyedia dan Pengembangan Sistem Pendidikan</footer>
+
 </body>
 </html>
