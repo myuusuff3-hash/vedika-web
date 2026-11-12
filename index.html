@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="description" content="Vedika EdTech membantu sekolah dan siswa dengan program SD, SMP, SMA, gap year, tryout olimpiade, TKA, UTBK/SNBT, dan digitalisasi ujian.">
+<meta name="description" content="Vedika EdTech membantu sekolah dan siswa dengan program SD, SMP, SMA, gap year, tryout olimpiade, TKA, UTBK/SNBT, dan Evolution.">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Vedika EdTech","url":"https://vedikaedtech.id/","logo":"https://vedikaedtech.id/icon-512.png"}
 </script>
@@ -180,12 +180,13 @@ footer ul{list-style:none;display:grid;gap:10px}footer a:hover{color:#fff}
     <nav class="menu" id="menu">
       <a href="#program">Program</a>
       <a href="#tryout">Tryout</a>
-      <a href="#digital">Digitalisasi</a>
+      <a href="#evolution">Evolution</a>
       <a href="#visi">Visi &amp; Misi</a>
-      <a href="https://app.vedikaedtech.id/">Masuk</a>
+      <a href="https://app.e-ujian.com/vedika" target="_blank" rel="noopener">Masuk</a>
+      <a href="https://app.vedikaedtech.id/">Laporan</a>
     </nav>
     <div class="nav-cta">
-      <a href="https://app.e-ujian.com/vedika" class="btn btn-primary" style="padding:10px 18px;font-size:.9rem" target="_blank" rel="noopener">Daftar Online</a>
+      <button type="button" class="btn btn-primary daftar-open" style="padding:10px 18px;font-size:.9rem">Daftar Online</button>
       <button class="theme" id="theme" aria-label="Ganti tema">☾</button>
       <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -253,10 +254,10 @@ footer ul{list-style:none;display:grid;gap:10px}footer a:hover{color:#fff}
   </div>
 </section>
 
-<section id="digital" style="padding-top:0">
+<section id="evolution" style="padding-top:0">
   <div class="wrap">
     <div class="digital reveal">
-      <span class="eyebrow" style="color:#D97757">Digitalisasi Ujian</span>
+      <span class="eyebrow" style="color:#D97757">Evolution</span>
       <h2 class="section-title">Dari ujian tertulis ke CBT</h2>
       <p class="lead">Kami mendampingi sekolah beralih dari ujian kertas ke Computer Based Test (CBT) secara bertahap: mulai dari penyusunan bank soal, pelaksanaan ujian di perangkat, hingga nilai dan rapor yang keluar otomatis.</p>
       <div class="feat">
@@ -296,7 +297,7 @@ footer ul{list-style:none;display:grid;gap:10px}footer a:hover{color:#fff}
       <p>Konsultasi gratis dengan tim akademik kami. Kami bantu pilih program yang paling sesuai dengan kebutuhan siswa.</p>
       <div class="hero-actions">
         <a href="https://wa.me/6285111728026?text=Halo%20Vedika%20EdTech%2C%20saya%20ingin%20konsultasi%20gratis." class="btn btn-wa" target="_blank" rel="noopener">Konsultasi via WhatsApp</a>
-        <a href="https://app.e-ujian.com/vedika" class="btn btn-primary" target="_blank" rel="noopener">Daftar Online</a>
+        <button type="button" class="btn btn-primary daftar-open">Daftar Online</button>
         <a href="#program" class="btn btn-ghost">Lihat Program</a>
       </div>
     </div>
@@ -311,7 +312,7 @@ footer ul{list-style:none;display:grid;gap:10px}footer a:hover{color:#fff}
         <p style="max-width:320px">Mitra belajar digital untuk siswa SD, SMP, SMA, dan gap year di seluruh Indonesia.</p>
       </div>
       <div><h5>Program</h5><ul><li><a href="#program">SD &amp; SMP</a></li><li><a href="#program">SMA</a></li><li><a href="#program">Gapyear / Paket</a></li><li><a href="#tryout">Tryout Olimpiade</a></li></ul></div>
-      <div><h5>Perusahaan</h5><ul><li><a href="#visi">Visi &amp; Misi</a></li><li><a href="#digital">Digitalisasi Ujian</a></li><li><a href="https://app.vedikaedtech.id/">Masuk Portal</a></li></ul></div>
+      <div><h5>Perusahaan</h5><ul><li><a href="#visi">Visi &amp; Misi</a></li><li><a href="#evolution">Evolution</a></li><li><a href="https://app.e-ujian.com/vedika" target="_blank" rel="noopener">Masuk</a></li><li><a href="https://app.vedikaedtech.id/">Laporan</a></li></ul></div>
       <div><h5>Kontak</h5><ul><li>vedika.edtech@gmail.com</li><li>+62 851-1172-8026</li><li>Senin – Jumat, 09.00 – 16.00 WIB</li></ul></div>
     </div>
     <div class="legal"><span>© 2026 Vedika EdTech. Hak cipta dilindungi.</span><span>Kebijakan Privasi · Syarat &amp; Ketentuan</span></div>
@@ -335,6 +336,37 @@ const t=document.getElementById('theme'),mq=matchMedia('(prefers-color-scheme: d
 const setT=d=>{document.documentElement.dataset.theme=d?'dark':'light';t.textContent=d?'☀':'☾'};
 setT(mq.matches);
 t.addEventListener('click',()=>setT(document.documentElement.dataset.theme!=='dark'));
+</script>
+
+<dialog id="pilih-daftar" class="pilih-daftar" aria-labelledby="pilih-judul">
+  <div class="in">
+    <h3 id="pilih-judul">Daftar sebagai apa?</h3>
+    <p>Pilih sesuai kebutuhan Anda.</p>
+    <a href="https://app.e-ujian.com/vedika" target="_blank" rel="noopener"><b>Umum</b><span>Pendaftaran perorangan (siswa atau orang tua)</span></a>
+    <a href="https://vedikaedtech.id/daftar/"><b>Lembaga / Sekolah</b><span>Pendaftaran program untuk sekolah atau lembaga</span></a>
+    <button type="button" class="tutup">Tutup</button>
+  </div>
+</dialog>
+<style>
+.pilih-daftar{border:1px solid var(--line);border-radius:20px;padding:0;max-width:440px;width:calc(100% - 32px);background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.pilih-daftar::backdrop{background:rgba(0,0,0,.45)}
+.pilih-daftar .in{padding:26px;display:grid;gap:12px}
+.pilih-daftar h3{margin:0;font-size:1.25rem}
+.pilih-daftar p{margin:0;color:var(--muted);font-size:.95rem}
+.pilih-daftar a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink)}
+.pilih-daftar a:hover{border-color:var(--accent)}
+.pilih-daftar a b{display:block}
+.pilih-daftar a span{display:block;color:var(--muted);font-size:.85rem}
+.pilih-daftar .tutup{background:none;border:0;color:var(--muted);justify-self:end;cursor:pointer;font:inherit;padding:6px 4px}
+</style>
+<script>
+(function(){
+  var d=document.getElementById('pilih-daftar');
+  document.querySelectorAll('.daftar-open').forEach(function(b){
+    b.addEventListener('click',function(){ if(d.showModal){d.showModal();} else {d.setAttribute('open','');} });
+  });
+  d.addEventListener('click',function(e){ if(e.target===d||e.target.classList.contains('tutup')) d.close(); });
+})();
 </script>
 </body>
 </html>
